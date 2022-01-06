@@ -42,6 +42,8 @@ default-extensions:
 - NamedFieldPuns
 - OverloadedStrings
 - ScopedTypeVariables
+- RankNTypes
+- DataKinds
 
 executables:
   emergency-manager-hk-exe:

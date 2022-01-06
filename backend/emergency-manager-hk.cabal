@@ -25,6 +25,7 @@ source-repository head
 library
   exposed-modules:
       Lib
+      Mongo
       Users
   other-modules:
       Paths_emergency_manager_hk
@@ -37,6 +38,8 @@ library
       NamedFieldPuns
       OverloadedStrings
       ScopedTypeVariables
+      RankNTypes
+      DataKinds
   build-depends:
       aeson
     , base >=4.7 && <5
@@ -65,6 +68,8 @@ executable emergency-manager-hk-exe
       NamedFieldPuns
       OverloadedStrings
       ScopedTypeVariables
+      RankNTypes
+      DataKinds
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       aeson
@@ -96,6 +101,8 @@ test-suite emergency-manager-hk-test
       NamedFieldPuns
       OverloadedStrings
       ScopedTypeVariables
+      RankNTypes
+      DataKinds
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       aeson

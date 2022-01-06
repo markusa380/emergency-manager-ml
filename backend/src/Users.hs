@@ -1,8 +1,8 @@
-{-# LANGUAGE RankNTypes #-}
 
 module Users (
     login,
     challenge,
+    maxTokenAgeSec
 ) where
 
 import Prelude hiding (lookup)
@@ -22,76 +22,68 @@ import qualified Data.ByteString.UTF8 as BSU
 
 import System.Random (randomRIO)
 
+import qualified Mongo
+
 data UserEntry = UserEntry
     { userId :: String
     , passwordHash :: ByteString
     , salt :: ByteString
-    }
-
-data IdUserEntry = IdUserEntry
-    { _id :: String
-    , userId :: String
-    , passwordHash :: ByteString
-    , salt :: ByteString
-    }
-
-data Token = Token
-    { tokenValue :: String
-    , userId :: String
-    , expires :: Int
-    }
-
-data IdToken = IdToken
-    { _id :: String
-    , tokenValue :: String
-    , userId :: String
-    , expires :: Integer
-    }
+    } deriving (Eq, Show)
 
 maxTokenAgeSec = 24 * 60 * 60
 
-type MongoConnection = (forall a. Action IO a -> IO a)
+tokensCollection = "tokens"
+usersCollection = "users"
 
-login :: MongoConnection -> String -> String -> IO (Maybe String)
+userIdField = "userId"
+passwordHashField = "passwordHash"
+saltField = "salt"
+
+tokenValueField = "tokenValueField"
+expiresField = "expires"
+
+login :: Mongo.Execution -> String -> String -> IO (Maybe String)
 login connection userId password = do
     user <- getUser connection userId
+    _ <- print user
     let matching = mfilter (comparePassword password) user
     forM matching (createToken connection)
 
-challenge :: MongoConnection -> String -> IO (Maybe String)
+challenge :: Mongo.Execution -> String -> IO (Maybe String)
 challenge connection tokenValue = do
     time <- getPOSIXTime
     let timestamp :: Integer = floor time
-    results <- connection $ next =<< find (select ["tokenValue" =: tokenValue] "tokens")
-    let tokenValue :: Maybe String = do
+    results <- connection $ next =<< find (select [tokenValueField =: tokenValue] tokensCollection)
+    let tokenValue = do
             document <- results
-            nonExpired <- mfilter (> timestamp) $ lookup "expires" document
-            return $ lookup "tokenValue" document
-    let update :: Action IO () = modify (select ["tokenValue" =: tokenValue] "tokens") ["expires" =: time + maxTokenAgeSec]
+            nonExpired <- mfilter (> timestamp) $ lookup expiresField document
+            return $ lookup tokenValueField document
+    let update = modify
+                (select [tokenValueField =: tokenValue] tokensCollection)
+                ["$set" =: [expiresField =: time + maxTokenAgeSec]]
     forM_ tokenValue $ const $ connection update
+    return tokenValue
 
-    undefined
-
-getUser :: MongoConnection -> String -> IO (Maybe UserEntry)
+getUser :: Mongo.Execution -> String -> IO (Maybe UserEntry)
 getUser connection userId = do
-    results <- connection $ next =<< find (select ["userId" =: userId] "users")
+    results <- connection $ next =<< find (select [userIdField =: userId] usersCollection)
     return $ do
         document <- results
-        passwordHash <- unwrapBinary <$> lookup "passwordHash" document
-        salt <- unwrapBinary <$> lookup "salt" document
+        passwordHash <- unwrapBinary <$> lookup passwordHashField document
+        salt <- unwrapBinary <$> lookup saltField document
         return $ UserEntry userId passwordHash salt
 
-createToken :: MongoConnection -> UserEntry -> IO String
+createToken :: Mongo.Execution -> UserEntry -> IO String
 createToken connection user = do
     tokenValue <- createTokenValue
     time <- getPOSIXTime
     let timestamp = floor time
     let token =
-            [ "tokenValue" =: tokenValue
-            , "userId" =: user.userId
-            , "expires" =: time + maxTokenAgeSec
+            [ tokenValueField =: tokenValue
+            , userIdField =: user.userId
+            , expiresField =: time + maxTokenAgeSec
             ]
-    fmap (const tokenValue) $ connection $ save "tokens" token
+    fmap (const tokenValue) $ connection $ save tokensCollection token
 
 createTokenValue :: IO String
 createTokenValue = replicateM 30 $ randomRIO ('a', 'z')
