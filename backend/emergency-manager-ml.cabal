@@ -4,11 +4,11 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 
-name:           emergency-manager-hk
+name:           emergency-manager-ml
 version:        0.1.0.0
-description:    Please see the README on GitHub at <https://github.com/githubuser/emergency-manager-hk#readme>
-homepage:       https://github.com/githubuser/emergency-manager-hk#readme
-bug-reports:    https://github.com/githubuser/emergency-manager-hk/issues
+description:    Please see the README on GitHub at <https://github.com/githubuser/emergency-manager-ml#readme>
+homepage:       https://github.com/githubuser/emergency-manager-ml#readme
+bug-reports:    https://github.com/githubuser/emergency-manager-ml/issues
 author:         Author name here
 maintainer:     example@example.com
 copyright:      2022 Author name here
@@ -20,7 +20,7 @@ extra-source-files:
 
 source-repository head
   type: git
-  location: https://github.com/githubuser/emergency-manager-hk
+  location: https://github.com/githubuser/emergency-manager-ml
 
 library
   exposed-modules:
@@ -28,7 +28,7 @@ library
       Mongo
       Users
   other-modules:
-      Paths_emergency_manager_hk
+      Paths_emergency_manager_ml
   hs-source-dirs:
       src
   default-extensions:
@@ -55,10 +55,10 @@ library
     , warp
   default-language: Haskell2010
 
-executable emergency-manager-hk-exe
+executable emergency-manager-ml-exe
   main-is: Main.hs
   other-modules:
-      Paths_emergency_manager_hk
+      Paths_emergency_manager_ml
   hs-source-dirs:
       app
   default-extensions:
@@ -76,7 +76,7 @@ executable emergency-manager-hk-exe
     , base
     , bytestring
     , cryptohash-sha512
-    , emergency-manager-hk
+    , emergency-manager-ml
     , mongoDB
     , random
     , record-hasfield
@@ -87,11 +87,11 @@ executable emergency-manager-hk-exe
     , warp
   default-language: Haskell2010
 
-test-suite emergency-manager-hk-test
+test-suite emergency-manager-ml-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
-      Paths_emergency_manager_hk
+      Paths_emergency_manager_ml
   hs-source-dirs:
       test
   default-extensions:
@@ -109,7 +109,7 @@ test-suite emergency-manager-hk-test
     , base
     , bytestring
     , cryptohash-sha512
-    , emergency-manager-hk
+    , emergency-manager-ml
     , hspec
     , hspec-wai
     , hspec-wai-json

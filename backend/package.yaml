@@ -1,6 +1,6 @@
-name:                emergency-manager-hk
+name:                emergency-manager-ml
 version:             0.1.0.0
-github:              "githubuser/emergency-manager-hk"
+github:              "githubuser/emergency-manager-ml"
 license:             BSD3
 author:              "Author name here"
 maintainer:          "example@example.com"
@@ -16,7 +16,7 @@ extra-source-files:
 # To avoid duplicated efforts in documentation and dealing with the
 # complications of embedding Haddock markup inside cabal files, it is
 # common to point users to the README.md file.
-description:         Please see the README on GitHub at <https://github.com/githubuser/emergency-manager-hk#readme>
+description:         Please see the README on GitHub at <https://github.com/githubuser/emergency-manager-ml#readme>
 
 dependencies:
 - base >= 4.7 && < 5
@@ -46,7 +46,7 @@ default-extensions:
 - DataKinds
 
 executables:
-  emergency-manager-hk-exe:
+  emergency-manager-ml-exe:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
@@ -55,10 +55,10 @@ executables:
     - -with-rtsopts=-N
     dependencies:
     - base
-    - emergency-manager-hk
+    - emergency-manager-ml
 
 tests:
-  emergency-manager-hk-test:
+  emergency-manager-ml-test:
     main:                Spec.hs
     source-dirs:         test
     ghc-options:
@@ -67,7 +67,7 @@ tests:
     - -with-rtsopts=-N
     dependencies:
     - base
-    - emergency-manager-hk
+    - emergency-manager-ml
     - hspec
     - hspec-wai
     - hspec-wai-json
