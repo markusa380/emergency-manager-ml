@@ -35,8 +35,8 @@ import Database.MongoDB (
 import Network.Wai.Handler.Warp
 import Servant
 
-import qualified Users
 import qualified Mongo
+import qualified Users
 
 data Auth = Auth
     { username :: String
@@ -75,6 +75,4 @@ server mongo =
                 cookie = "token=" ++ token ++ "; Max-Age=" ++ show Users.maxTokenAgeSec
             Nothing ->
                 throwError
-                    err400
-                        { errBody = "Username or password incorrect"
-                        }
+                    err400 {errBody = "Username or password incorrect"}
