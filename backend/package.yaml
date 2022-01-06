@@ -1,0 +1,72 @@
+name:                emergency-manager-hk
+version:             0.1.0.0
+github:              "githubuser/emergency-manager-hk"
+license:             BSD3
+author:              "Author name here"
+maintainer:          "example@example.com"
+copyright:           "2022 Author name here"
+
+extra-source-files:
+- README.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on GitHub at <https://github.com/githubuser/emergency-manager-hk#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+- aeson
+- servant-server
+- mongoDB
+- wai
+- warp
+- record-hasfield
+- cryptohash-sha512
+- bytestring
+- utf8-string
+- random
+- time
+
+library:
+  source-dirs: src
+
+default-extensions:
+- DeriveGeneric
+- FlexibleInstances
+- LambdaCase
+- NamedFieldPuns
+- OverloadedStrings
+- ScopedTypeVariables
+
+executables:
+  emergency-manager-hk-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - base
+    - emergency-manager-hk
+
+tests:
+  emergency-manager-hk-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - base
+    - emergency-manager-hk
+    - hspec
+    - hspec-wai
+    - hspec-wai-json
+    - aeson

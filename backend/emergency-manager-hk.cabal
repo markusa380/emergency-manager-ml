@@ -1,0 +1,117 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.34.4.
+--
+-- see: https://github.com/sol/hpack
+
+name:           emergency-manager-hk
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/emergency-manager-hk#readme>
+homepage:       https://github.com/githubuser/emergency-manager-hk#readme
+bug-reports:    https://github.com/githubuser/emergency-manager-hk/issues
+author:         Author name here
+maintainer:     example@example.com
+copyright:      2022 Author name here
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/emergency-manager-hk
+
+library
+  exposed-modules:
+      Lib
+      Users
+  other-modules:
+      Paths_emergency_manager_hk
+  hs-source-dirs:
+      src
+  default-extensions:
+      DeriveGeneric
+      FlexibleInstances
+      LambdaCase
+      NamedFieldPuns
+      OverloadedStrings
+      ScopedTypeVariables
+  build-depends:
+      aeson
+    , base >=4.7 && <5
+    , bytestring
+    , cryptohash-sha512
+    , mongoDB
+    , random
+    , record-hasfield
+    , servant-server
+    , time
+    , utf8-string
+    , wai
+    , warp
+  default-language: Haskell2010
+
+executable emergency-manager-hk-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_emergency_manager_hk
+  hs-source-dirs:
+      app
+  default-extensions:
+      DeriveGeneric
+      FlexibleInstances
+      LambdaCase
+      NamedFieldPuns
+      OverloadedStrings
+      ScopedTypeVariables
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      aeson
+    , base
+    , bytestring
+    , cryptohash-sha512
+    , emergency-manager-hk
+    , mongoDB
+    , random
+    , record-hasfield
+    , servant-server
+    , time
+    , utf8-string
+    , wai
+    , warp
+  default-language: Haskell2010
+
+test-suite emergency-manager-hk-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_emergency_manager_hk
+  hs-source-dirs:
+      test
+  default-extensions:
+      DeriveGeneric
+      FlexibleInstances
+      LambdaCase
+      NamedFieldPuns
+      OverloadedStrings
+      ScopedTypeVariables
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      aeson
+    , base
+    , bytestring
+    , cryptohash-sha512
+    , emergency-manager-hk
+    , hspec
+    , hspec-wai
+    , hspec-wai-json
+    , mongoDB
+    , random
+    , record-hasfield
+    , servant-server
+    , time
+    , utf8-string
+    , wai
+    , warp
+  default-language: Haskell2010

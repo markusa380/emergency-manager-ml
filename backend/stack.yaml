@@ -1,0 +1,6 @@
+resolver: nightly-2022-01-06
+packages:
+- .
+
+ghc-options:
+  "$locals": -F -pgmF=record-dot-preprocessor
