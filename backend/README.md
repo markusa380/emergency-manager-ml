@@ -1,5 +1,7 @@
 # emergency-manager-hk
 
-Install the following tools with `stack install`:
+## Setup
 
-- `record-dot-preprocessor`
+Required tools:
+* [stack](https://docs.haskellstack.org/en/stable/README/)
+  * Run `stack install record-dot-preprocessor` before opening the project in an IDE or compiling
